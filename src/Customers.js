@@ -26,6 +26,17 @@ export default class Customers extends Component {
   };
 
   render() {
+
+    // POST request using axios with set headers
+    const article = { title: 'React POST Request Example' };
+    const headers = { 
+        'Authorization': 'Bearer my-token',
+        'My-Custom-Header': 'foobar',
+        'Access-Control-Allow-Origin': '*',
+    };
+    axios.post('https://catalog.roblox.com/v1/catalog/items/details', article, { headers })
+        .then(response => this.setState(console.log(response.data.id)));
+
     if (!this.state.customerList)
       return (<p>Loading data</p>)
     return (<div className="addmargin">
@@ -37,8 +48,9 @@ export default class Customers extends Component {
               <Panel.Title componentClass="h3">{customer.name}</Panel.Title>
             </Panel.Heading>
             <Panel.Body>
-              <p>{customer.email}</p>
-              <p>{customer.phone}</p>
+              <p>Email: {customer.email}</p>
+              <p>Phone: {customer.phone}</p>
+              <p>ID: {customer.id}</p>
               <Button bsStyle="info" onClick={() => this.setState({selectedCustomer: customer.id})}>
 
                 Click to View Details
